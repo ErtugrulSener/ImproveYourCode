@@ -5,9 +5,9 @@ TEST_CASE("The answer to the universe and everything", "[theanswer]") {
 };
 
 TEST_CASE("Check a vector", "[benchmark]") {
-	static const int size = 2;
+	static const int size = 1000;
 
-	std::vector<int> vec;
+	static std::vector<int> vec;
 
 	BENCHMARK("Vector load really long.")
 	{
@@ -16,15 +16,13 @@ TEST_CASE("Check a vector", "[benchmark]") {
 		for (int i = 0; i < vec.size(); ++i)
 			vec.push_back(i);
 	};
-	REQUIRE(vec.size() == size);
 
 	BENCHMARK("Vector load really long with resize.")
 	{
 		vec = std::vector<int>();
-		vec.resize(size);
+		vec.reserve(size);
 
 		for (int i = 0; i < vec.size(); ++i)
 			vec.push_back(i);
 	};
-	REQUIRE(vec.size() == size);
 };
